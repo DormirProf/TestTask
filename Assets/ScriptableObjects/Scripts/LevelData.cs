@@ -7,10 +7,10 @@ namespace ScriptableObjects.Scripts
     {
         [SerializeField] private int _rowCount;
         [SerializeField] private int _columnCount;
-        [SerializeField] private SetData[] _setsData;
+        [SerializeField] private PackData[] _packsData;
         
         public int RowCount => _rowCount;
         public int ColumnCount => _columnCount;
-        public SetData[] SetsData => _setsData;
+        public PackData[] PackData => _packsData;
     }
 }

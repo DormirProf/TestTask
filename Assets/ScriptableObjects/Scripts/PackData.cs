@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ScriptableObjects.Scripts
 {
     [CreateAssetMenu(fileName = "SetData", menuName = "Data/Set Data", order = 3)]
-    public class SetData : ScriptableObject
+    public class PackData : ScriptableObject
     {
         [SerializeField] private CellData[] _cells;
 

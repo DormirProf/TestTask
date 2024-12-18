@@ -14,7 +14,7 @@ namespace Scripts.Level
         [SerializeField] private FindText _findText;
         
         [Inject] private UsedFindIdentifiers _usedFindIdentifiers;
-        private SetData _currentSet;
+        private PackData _currentPackData;
         private CellData _currentFindCell;
         private LevelSetSelector _levelSetSelector;
         private LevelData _levelData;
@@ -28,13 +28,13 @@ namespace Scripts.Level
         {
             _levelData = levelData;
             _gridСolumnsSizeUpdater.UpdateColumnsSize(_levelData.ColumnCount);
-            _currentSet = _levelSetSelector.GetRandomSet(_levelData.SetsData);
-            SetRandomFindIdentifier(_currentSet);
-            _cellsLoader.Load(_levelData, _currentSet, _currentFindCell);
+            _currentPackData = _levelSetSelector.GetRandomSet(_levelData.PackData);
+            SetRandomFindIdentifier(_currentPackData);
+            _cellsLoader.Load(_levelData, _currentPackData, _currentFindCell);
             _findText.UpdateText(_currentFindCell.Identifier);
         }
 
-        private void SetRandomFindIdentifier(SetData setData)
+        private void SetRandomFindIdentifier(PackData setData)
         {
             var randomCell = setData.Cells[Random.Range(0, setData.Cells.Length)];
             var cellIdentifier = randomCell.Identifier;

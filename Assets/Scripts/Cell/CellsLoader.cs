@@ -17,16 +17,16 @@ namespace Scripts.Cell
         private List<CellConfig> _cells = new List<CellConfig>();
         private List<CellData> _usedCells = new List<CellData>();
         private LevelData _levelData;
-        private SetData _setData;
+        private PackData _packData;
         private CellData _currentFindCell;
         private int _cellCount;
 
         public IEnumerable<CellConfig> Cells => _cells;
 
-        public void Load(LevelData levelData, SetData setData, CellData currentFindCell)
+        public void Load(LevelData levelData, PackData packData, CellData currentFindCell)
         {
             _levelData = levelData;
-            _setData = setData;
+            _packData = packData;
             _currentFindCell = currentFindCell;
             
             _usedCells.Clear();
@@ -56,7 +56,7 @@ namespace Scripts.Cell
 
         private void AddRandomCellToList()
         {
-            var randomCellData = _setData.Cells[Random.Range(0, _setData.Cells.Length)];
+            var randomCellData = _packData.Cells[Random.Range(0, _packData.Cells.Length)];
             foreach (var searchIdentifier in _usedCells)
             {
                 if (randomCellData.Identifier == searchIdentifier.Identifier)

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32b8ed517a9e4b2e84f6a9a8fddcc611, type: 3}
-  m_Name: NumberSet
+  m_Name: NumberPack
   m_EditorClassIdentifier: 
   _cells:
   - {fileID: 11400000, guid: 1e8ff3440ee3d46008d9941d65fe75ed, type: 2}

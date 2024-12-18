@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rowCount: 3
   _columnCount: 3
-  _setsData:
-  - {fileID: 11400000, guid: 1715e7abf8dac4b75b3c6c574959c417, type: 2}
+  _packsData:
   - {fileID: 11400000, guid: 469f7fd291b47424c82b5a2031e4cebe, type: 2}
+  - {fileID: 11400000, guid: 1715e7abf8dac4b75b3c6c574959c417, type: 2}

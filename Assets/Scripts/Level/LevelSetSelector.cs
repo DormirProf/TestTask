@@ -5,7 +5,7 @@ namespace Scripts.Level
 {
     public class LevelSetSelector : MonoBehaviour
     {
-        public SetData GetRandomSet(SetData[] setsData)
+        public PackData GetRandomSet(PackData[] setsData)
         {
             var randomSet = setsData[Random.Range(0, setsData.Length)];
             return randomSet;
