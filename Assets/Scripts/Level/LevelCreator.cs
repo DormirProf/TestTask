@@ -24,7 +24,7 @@ namespace Scripts.Level
             _levelSetSelector = gameObject.GetComponent<LevelSetSelector>();
         }
 
-        public void Load(LevelData levelData)
+        public void Create(LevelData levelData)
         {
             _levelData = levelData;
             _gridСolumnsSizeUpdater.UpdateColumnsSize(_levelData.ColumnCount);

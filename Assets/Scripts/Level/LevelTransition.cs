@@ -18,7 +18,7 @@ namespace Scripts.Level
         
         private void Start()
         {
-            _levelCreator.Load(_levelDatas[_currentLevelIndex]);
+            _levelCreator.Create(_levelDatas[_currentLevelIndex]);
             _cellAnimationActivator.ActivateAnimation();
         }
 
@@ -31,7 +31,7 @@ namespace Scripts.Level
             }
             else
             {
-                _levelCreator.Load(_levelDatas[_currentLevelIndex]);
+                _levelCreator.Create(_levelDatas[_currentLevelIndex]);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Scripts.Level
         {
             _currentLevelIndex = 0;
             _usedFindIdentifiers.ClearIdentifiers();
-            _levelCreator.Load(_levelDatas[_currentLevelIndex]);
+            _levelCreator.Create(_levelDatas[_currentLevelIndex]);
             _cellAnimationActivator.ActivateAnimation();
             _textFadeEffect.FadeIn();
         }
