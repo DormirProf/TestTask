@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bdcb4ee6f71446687a1e9ac2affcf6, type: 3}
+  m_Name: L
+  m_EditorClassIdentifier: 
+  _identifier: L
+  _sprite: {fileID: -5901097786099144959, guid: f32033c31334143f3af22e1b2c2c860f, type: 3}
+  _rotationSpriteAngle: 0
