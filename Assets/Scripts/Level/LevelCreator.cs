@@ -1,30 +1,23 @@
 using System;
 using ScriptableObjects.Scripts;
 using Scripts.Cell;
-using UnityEngine;
+using Scripts.UI;
 using VContainer;
 using Random = UnityEngine.Random;
 
 namespace Scripts.Level
 {
-    public class LevelCreator : MonoBehaviour
+    public class LevelCreator
     {
-        public event Action<string> OnLevelCreated;
+        public event Action<string> OnCurrentCellIdentifierSelected;
         
-        [SerializeField] private GridColumnsSizeUpdater _gridСolumnsSizeUpdater;
-        [SerializeField] private CellsLoader _cellsLoader;
-        [SerializeField] private FindText _findText;
-        
+        [Inject] private CellsLoader _cellsLoader;
+        [Inject] private GridColumnsSizeUpdater _gridСolumnsSizeUpdater;
         [Inject] private UsedFindIdentifiers _usedFindIdentifiers;
         private PackData _currentPackData;
         private CellData _currentFindCell;
-        private LevelSetSelector _levelSetSelector;
+        private LevelSetSelector _levelSetSelector = new LevelSetSelector();
         private LevelData _levelData;
-        
-        private void Awake()
-        {
-            _levelSetSelector = new LevelSetSelector();
-        }
 
         public void Create(LevelData levelData)
         {
@@ -33,7 +26,7 @@ namespace Scripts.Level
             _currentPackData = _levelSetSelector.GetRandomSet(_levelData.PackData);
             SetRandomFindIdentifier(_currentPackData);
             _cellsLoader.Load(_levelData, _currentPackData, _currentFindCell);
-            OnLevelCreated?.Invoke(_currentFindCell.Identifier);
+            OnCurrentCellIdentifierSelected?.Invoke(_currentFindCell.Identifier);
         }
 
         private void SetRandomFindIdentifier(PackData setData)

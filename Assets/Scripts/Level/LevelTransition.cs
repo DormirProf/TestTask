@@ -1,27 +1,35 @@
+using System;
 using ScriptableObjects.Scripts;
-using Scripts.Animations;
 using UnityEngine;
 using VContainer;
 
 namespace Scripts.Level
 {
-    [RequireComponent(typeof(LevelCreator))]
     public class LevelTransition : MonoBehaviour
     {
-        [SerializeField] private LevelData[] _levelDatas;
-        [SerializeField] private GameObject _restartWindow;
+        public event Action OnLevelUpdated;
+        public event Action OnLevelReseted;
+        public event Action<string> OnCurrentFindCellIdentifierSeted;
         
-        [Inject] private CellAnimationActivator _cellAnimationActivator;
-        [Inject] private TextFadeEffect _textFadeEffect;
+        [SerializeField] private LevelData[] _levelDatas;
+        
         [Inject] private UsedFindIdentifiers _usedFindIdentifiers;
+        [Inject] private readonly IObjectResolver _container;
         private int _currentLevelIndex;
+        private string _currentFindCellIdentifier;
         private LevelCreator _levelCreator;
         
-        private void Start()
+        private void Awake()
         {
-            _levelCreator = gameObject.GetComponent<LevelCreator>();
+            _levelCreator = new LevelCreator();
+            _container.Inject(_levelCreator);
+            _levelCreator.OnCurrentCellIdentifierSelected += SetCurrentFindCellIdentifier;
             _levelCreator.Create(_levelDatas[_currentLevelIndex]);
-            _cellAnimationActivator.ActivateAnimation();
+        }
+
+        private void OnDestroy()
+        {
+            _levelCreator.OnCurrentCellIdentifierSelected -= SetCurrentFindCellIdentifier;
         }
 
         public void NextLevel()
@@ -29,7 +37,7 @@ namespace Scripts.Level
             _currentLevelIndex += 1;
             if (_currentLevelIndex >= _levelDatas.Length)
             {
-                ActivateRestartWindow();
+                OnLevelUpdated?.Invoke();
             }
             else
             {
@@ -42,13 +50,13 @@ namespace Scripts.Level
             _currentLevelIndex = 0;
             _usedFindIdentifiers.ClearIdentifiers();
             _levelCreator.Create(_levelDatas[_currentLevelIndex]);
-            _cellAnimationActivator.ActivateAnimation();
-            _textFadeEffect.FadeIn();
+            OnLevelReseted?.Invoke();
         }
 
-        private void ActivateRestartWindow()
+        private void SetCurrentFindCellIdentifier(string identifier)
         {
-            _restartWindow.SetActive(true);
+            _currentFindCellIdentifier = identifier;
+            OnCurrentFindCellIdentifierSeted?.Invoke(_currentFindCellIdentifier);
         }
     }
 }

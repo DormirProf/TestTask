@@ -3,7 +3,7 @@ using Scripts.Level;
 using UnityEngine;
 using VContainer;
 
-namespace Scripts
+namespace Scripts.UI
 {
     [RequireComponent(typeof(FadeEffect))]
     public class LoadingWindow : MonoBehaviour
