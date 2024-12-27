@@ -2,7 +2,9 @@
     "name": "VContainer.Editor",
     "rootNamespace": "",
     "references": [
-        "VContainer"
+        "VContainer",
+        "UnityEditor.UI",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [
         "Editor"
