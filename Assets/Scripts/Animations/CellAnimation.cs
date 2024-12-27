@@ -5,11 +5,11 @@ namespace Scripts.Animations
 {
     public class CellAnimation : MonoBehaviour
     {
-        [SerializeField] private float _duration = 0.5f;
-        [SerializeField] private float _scaleUpMultiplier = 1.2f;
-        [SerializeField] private float _scaleDownMultiplier = 0.8f;
-        [SerializeField] private float _moveDistance = 50f; 
-        [SerializeField] private float _itemDuration = 0.5f;
+        [SerializeField] private float _duration;
+        [SerializeField] private float _scaleUpMultiplier;
+        [SerializeField] private float _scaleDownMultiplier;
+        [SerializeField] private float _moveDistance; 
+        [SerializeField] private float _itemDuration;
         [SerializeField] private Transform _item;
 
         public void PlayBounceEffect()

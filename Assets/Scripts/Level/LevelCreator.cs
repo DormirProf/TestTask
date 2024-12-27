@@ -1,3 +1,4 @@
+using System;
 using ScriptableObjects.Scripts;
 using Scripts.Cell;
 using UnityEngine;
@@ -6,9 +7,10 @@ using Random = UnityEngine.Random;
 
 namespace Scripts.Level
 {
-    [RequireComponent(typeof(LevelSetSelector))]
     public class LevelCreator : MonoBehaviour
     {
+        public event Action<string> OnLevelCreated;
+        
         [SerializeField] private GridColumnsSizeUpdater _gridСolumnsSizeUpdater;
         [SerializeField] private CellsLoader _cellsLoader;
         [SerializeField] private FindText _findText;
@@ -21,7 +23,7 @@ namespace Scripts.Level
         
         private void Awake()
         {
-            _levelSetSelector = gameObject.GetComponent<LevelSetSelector>();
+            _levelSetSelector = new LevelSetSelector();
         }
 
         public void Create(LevelData levelData)
@@ -31,7 +33,7 @@ namespace Scripts.Level
             _currentPackData = _levelSetSelector.GetRandomSet(_levelData.PackData);
             SetRandomFindIdentifier(_currentPackData);
             _cellsLoader.Load(_levelData, _currentPackData, _currentFindCell);
-            _findText.UpdateText(_currentFindCell.Identifier);
+            OnLevelCreated?.Invoke(_currentFindCell.Identifier);
         }
 
         private void SetRandomFindIdentifier(PackData setData)

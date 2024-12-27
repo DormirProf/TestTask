@@ -1,5 +1,7 @@
+using Scripts.Level;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Scripts
 {
@@ -7,7 +9,19 @@ namespace Scripts
     {
         [SerializeField] private TextMeshProUGUI _find;
 
-        public void UpdateText(string identifier)
+        [Inject] private LevelCreator _levelCreator;
+
+        private void OnEnable()
+        {
+            _levelCreator.OnLevelCreated += UpdateText;
+        }
+
+        private void OnDisable()
+        {
+            _levelCreator.OnLevelCreated -= UpdateText;
+        }
+
+        private void UpdateText(string identifier)
         {
             _find.text = $"Find: {identifier}";
         }

@@ -14,14 +14,14 @@ namespace Scripts.Cell
         [SerializeField] private LevelTransition levelTransition;
         
         [Inject] private IObjectResolver _resolver;
-        private List<CellConfig> _cells = new List<CellConfig>();
+        private List<Cell> _cells = new List<Cell>();
         private List<CellData> _usedCells = new List<CellData>();
         private LevelData _levelData;
         private PackData _packData;
         private CellData _currentFindCell;
         private int _cellCount;
 
-        public IEnumerable<CellConfig> Cells => _cells;
+        public IEnumerable<Cell> Cells => _cells;
 
         public void Load(LevelData levelData, PackData packData, CellData currentFindCell)
         {
@@ -79,8 +79,8 @@ namespace Scripts.Cell
         private void AddNewCell()
         {
             var cell = _resolver.Instantiate(_cellPrefab, _cellPrefab.transform.position, Quaternion.identity, transform);
-            var cellConfig = cell.GetComponent<CellConfig>();
-            _cells.Add(cellConfig);
+            var cellScript = cell.GetComponent<Cell>();
+            _cells.Add(cellScript);
         }
         
         private void SetCurrentIdentifierToRandomPosition()
@@ -104,7 +104,7 @@ namespace Scripts.Cell
             for (int i = 0; i < _usedCells.Count; i++)
             {
                 _cells[i].gameObject.SetActive(true);
-                _cells[i].SetConfig(_usedCells[i], _currentFindCell);
+                _cells[i].InitializeCellModel(_usedCells[i], _currentFindCell);
             }
         }
     }

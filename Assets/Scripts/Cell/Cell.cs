@@ -1,61 +1,65 @@
-using Scripts.Animations;
+﻿using ScriptableObjects.Scripts;
 using Scripts.Level;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
 namespace Scripts.Cell
 {
-    [RequireComponent(typeof(Button), typeof(CellConfig))]
+    [RequireComponent(typeof(CellView))]
     public class Cell : MonoBehaviour
     {
-        [SerializeField] private CellConfig _cellConfig;
-        [SerializeField] private CellAnimation _cellAnimation;
-        [SerializeField] private GameObject _particles;
-        
         [Inject] private LevelTransition _levelTransition;
-        private Button _button;
-        private bool _isParticleAnimating;
-        
+        private CellModel _cellModel;
+        private CellView _cellView;
+
         private void Awake()
         {
-            _button = gameObject.GetComponent<Button>();
+            _cellModel = new CellModel();
+            _cellView = gameObject.GetComponent<CellView>();
         }
 
         private void OnEnable()
         {
-            _button.onClick.AddListener(Click);
+            _cellModel.OnLevelPassed += OnLevelPassed;
+            _cellModel.OnLevelFailed += OnLevelFailed;
+            _cellModel.OnTimeForNextLevelStarted += OnTimeForNextLevelStarted;
+            _cellView.OnUserClicked += OnUserClickedOnCell;
         }
 
         private void OnDisable()
         {
-            _button.onClick.RemoveListener(Click);
+            _cellModel.OnLevelPassed -= OnLevelPassed;
+            _cellModel.OnLevelFailed -= OnLevelFailed;
+            _cellModel.OnTimeForNextLevelStarted -= OnTimeForNextLevelStarted;
+            _cellView.OnUserClicked -= OnUserClickedOnCell;
         }
 
-        private void Click()
+        public void InitializeCellModel(CellData cellData, CellData currentFindCell)
         {
-            if (_cellConfig.CellData.Identifier == _cellConfig.CurrentFindCell.Identifier)
-            {
-                if (_isParticleAnimating)
-                {
-                    return;
-                }
-                _isParticleAnimating = true;
-                _particles.SetActive(true);
-                _cellAnimation.PlayBounceEffect();
-                Invoke(nameof(GoToNextLevel), 1.8f);
-            }
-            else
-            {
-                _cellAnimation.PlayShakeEffect();
-            }
+            _cellModel.Initialize(cellData, currentFindCell);
+            _cellView.RotateItem(cellData);
+            _cellView.SetItemSprite(cellData);
         }
 
-        private void GoToNextLevel()
+        private void OnUserClickedOnCell()
         {
-            _isParticleAnimating = false;
-            _particles.SetActive(false);
+            _cellModel.StartCheckingCells();
+        }
+
+        private void OnLevelPassed()
+        {
+            _cellView.StopLevelPassedAnimation();
             _levelTransition.NextLevel();
+        }
+
+        private void OnLevelFailed()
+        {
+            _cellView.StartWrongClickAnimation();
+        }
+
+        private void OnTimeForNextLevelStarted()
+        {
+            _cellView.StartLevelPassedAnimation();
         }
     }
 }

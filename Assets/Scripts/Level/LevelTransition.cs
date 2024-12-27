@@ -5,9 +5,9 @@ using VContainer;
 
 namespace Scripts.Level
 {
+    [RequireComponent(typeof(LevelCreator))]
     public class LevelTransition : MonoBehaviour
     {
-        [SerializeField] private LevelCreator _levelCreator;
         [SerializeField] private LevelData[] _levelDatas;
         [SerializeField] private GameObject _restartWindow;
         
@@ -15,9 +15,11 @@ namespace Scripts.Level
         [Inject] private TextFadeEffect _textFadeEffect;
         [Inject] private UsedFindIdentifiers _usedFindIdentifiers;
         private int _currentLevelIndex;
+        private LevelCreator _levelCreator;
         
         private void Start()
         {
+            _levelCreator = gameObject.GetComponent<LevelCreator>();
             _levelCreator.Create(_levelDatas[_currentLevelIndex]);
             _cellAnimationActivator.ActivateAnimation();
         }

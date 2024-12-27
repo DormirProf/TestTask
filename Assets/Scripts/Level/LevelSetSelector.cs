@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scripts.Level
 {
-    public class LevelSetSelector : MonoBehaviour
+    public class LevelSetSelector
     {
         public PackData GetRandomSet(PackData[] setsData)
         {

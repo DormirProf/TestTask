@@ -10,6 +10,7 @@ namespace Scripts.DI
     public class GameLifetimeScope : LifetimeScope
     {
         [SerializeField]  private LevelTransition _levelTransition;
+        [SerializeField]  private LevelCreator _levelCreator;
         [SerializeField]  private CellsLoader _cellsLoader;
         [SerializeField]  private CellAnimationActivator _cellAnimationActivator;
         [SerializeField]  private TextFadeEffect _textFadeEffect;
@@ -18,6 +19,7 @@ namespace Scripts.DI
         protected override void Configure(IContainerBuilder builder)
         {
            builder.RegisterComponent(_levelTransition);
+           builder.RegisterComponent(_levelCreator);
            builder.RegisterComponent(_cellsLoader);
            builder.RegisterComponent(_cellAnimationActivator);
            builder.RegisterComponent(_textFadeEffect);
