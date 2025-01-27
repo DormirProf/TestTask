@@ -4,14 +4,9 @@ using UnityEngine;
 
 namespace Scripts
 {
-    public class UsedFindIdentifiers : MonoBehaviour
+    public class UsedFindIdentifiers
     {
         private List<string> _identifiers = new List<string>();
-        
-        private void OnDisable()
-        {
-            _identifiers.Clear();
-        }
 
         public void AddIdentifier(string identifier)
         {

@@ -20,17 +20,17 @@ namespace Scripts.Cell
 
         private void OnEnable()
         {
-            _cellModel.OnLevelPassed += OnLevelPassed;
-            _cellModel.OnLevelFailed += OnLevelFailed;
-            _cellModel.OnTimeForNextLevelStarted += OnTimeForNextLevelStarted;
+            _cellModel.OnCellCheckPassed += OnCellCheckPassed;
+            _cellModel.OnCellCheckFailed += OnCellCheckFailed;
+            _cellModel.OnTimerAfterPassingCheckStarted += OnTimeForNextLevelStarted;
             _cellView.OnUserClicked += OnUserClickedOnCell;
         }
 
         private void OnDisable()
         {
-            _cellModel.OnLevelPassed -= OnLevelPassed;
-            _cellModel.OnLevelFailed -= OnLevelFailed;
-            _cellModel.OnTimeForNextLevelStarted -= OnTimeForNextLevelStarted;
+            _cellModel.OnCellCheckPassed -= OnCellCheckPassed;
+            _cellModel.OnCellCheckFailed -= OnCellCheckFailed;
+            _cellModel.OnTimerAfterPassingCheckStarted -= OnTimeForNextLevelStarted;
             _cellView.OnUserClicked -= OnUserClickedOnCell;
         }
 
@@ -46,13 +46,13 @@ namespace Scripts.Cell
             _cellModel.StartCheckingCells();
         }
 
-        private void OnLevelPassed()
+        private void OnCellCheckPassed()
         {
             _cellView.StopLevelPassedAnimation();
             _levelTransition.NextLevel();
         }
 
-        private void OnLevelFailed()
+        private void OnCellCheckFailed()
         {
             _cellView.StartWrongClickAnimation();
         }

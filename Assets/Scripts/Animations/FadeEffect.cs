@@ -26,12 +26,5 @@ namespace Scripts.Animations
             _fadeImage.DOFade(0, 1f)
                 .OnKill(() => _fadeImage.gameObject.SetActive(false));
         }
-        
-        private void SetFadeOut()
-        {
-            DOTween.Sequence()
-                .AppendInterval(2f)
-                .AppendCallback(FadeOut);
-        }
     }
 }

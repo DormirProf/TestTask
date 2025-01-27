@@ -4,13 +4,13 @@ using VContainer;
 
 namespace Scripts.Animations
 {
-    public class CellAnimationActivator : MonoBehaviour
+    public class CellAnimationActivator
     {
-        [Inject] private CellsLoader _cellsLoader;
+        [Inject] private CellPool _cellPool;
 
         public void ActivateAnimation()
         {
-            foreach (var cell in _cellsLoader.Cells)
+            foreach (var cell in _cellPool.Cells)
             {
                 cell.GetComponent<CellAnimation>().PlayBounceEffect();
             }

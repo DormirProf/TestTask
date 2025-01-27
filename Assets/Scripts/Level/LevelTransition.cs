@@ -1,5 +1,6 @@
 using System;
 using ScriptableObjects.Scripts;
+using Scripts.Cell;
 using UnityEngine;
 using VContainer;
 
@@ -12,18 +13,20 @@ namespace Scripts.Level
         public event Action<string> OnCurrentFindCellIdentifierSeted;
         
         [SerializeField] private LevelData[] _levelDatas;
+        [SerializeField] private Transform _cellParent;
         
         [Inject] private UsedFindIdentifiers _usedFindIdentifiers;
         [Inject] private readonly IObjectResolver _container;
+        [Inject] private LevelCreator _levelCreator;
+        [Inject] private CellPool _cellPool;
+        
         private int _currentLevelIndex;
         private string _currentFindCellIdentifier;
-        private LevelCreator _levelCreator;
         
         private void Awake()
         {
-            _levelCreator = new LevelCreator();
-            _container.Inject(_levelCreator);
             _levelCreator.OnCurrentCellIdentifierSelected += SetCurrentFindCellIdentifier;
+            _cellPool.SetParentForCells(_cellParent);
             _levelCreator.Create(_levelDatas[_currentLevelIndex]);
         }
 

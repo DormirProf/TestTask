@@ -6,9 +6,9 @@ namespace Scripts.Cell
 {
     public class CellModel
     {
-        public event Action OnLevelPassed;
-        public event Action OnLevelFailed;
-        public event Action OnTimeForNextLevelStarted;
+        public event Action OnCellCheckPassed;
+        public event Action OnCellCheckFailed;
+        public event Action OnTimerAfterPassingCheckStarted;
         
        
         private CellConfig _cellConfig;
@@ -28,19 +28,19 @@ namespace Scripts.Cell
                     return;
                 }
                 _isTimeForNextLevelPassed = false;
-                OnTimeForNextLevelStarted?.Invoke();
-                GoToNextLevel();
+                StartTimerAfterPassingCheck();
             }
             else
             {
-                OnLevelFailed?.Invoke();
+                OnCellCheckFailed?.Invoke();
             }
         }
-        private async void GoToNextLevel()
+        private async void StartTimerAfterPassingCheck()
         {
+            OnTimerAfterPassingCheckStarted?.Invoke();
             await Task.Delay(1800);
             _isTimeForNextLevelPassed = true;
-            OnLevelPassed?.Invoke();
+            OnCellCheckPassed?.Invoke();
         }
     }
 }
